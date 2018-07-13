@@ -15,7 +15,7 @@ defmodule NetLogger.Packet do
   end
 
   def decode(binary) when is_binary(binary) do
-    case Base.decode64!(binary) |> Jason.decode!() do
+    case Base.decode64!(binary, ignore: :whitespace) |> Jason.decode!() do
       %{"id" => id, "type" => type, "data" => data} ->
         new(id, String.to_atom(type), data)
       _ -> raise("not a Net Logger packet")

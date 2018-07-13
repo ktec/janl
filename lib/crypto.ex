@@ -19,7 +19,7 @@ defmodule NetLogger.Crypto do
   end
 
   def decrypt(encrypted, private) when is_binary(encrypted) do
-    Base.decode64!(encrypted)
+    Base.decode64!(encrypted, ignore: :whitespace)
     |> :public_key.decrypt_private(private)
   end
 end
